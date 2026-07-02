@@ -1,44 +1,69 @@
 <!DOCTYPE html>
+<!-- lang="pt-br": Define o idioma da página pra leitor de tela e Google -->
+<!-- data-contexto="foco": Atributo customizado. O CSS/JS usa ele pra trocar tema/cor -->
 <html lang="pt-br" data-contexto="foco">
 
 <head>
+    <!-- charset="UTF-8": Permite usar acentos: á, ç, ã sem bugar -->
     <meta charset="UTF-8">
+    <!-- viewport: Faz o site ficar responsivo no celular. Sem isso fica zoom out -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fokus</title>
+    
+    <!-- Ícone da aba do navegador. O ./ garante que vai buscar na pasta atual -->
     <link rel="shortcut icon" href="./imagens/favicon.ico" type="image/x-icon">
+    
+    <!-- Reset CSS: Zera todas as margens/paddings padrão do navegador pra ficar igual em todo lugar -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
         integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Otimização Google Fonts: preconnect deixa a fonte carregar mais rápido -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Prata&family=Unbounded:wght@200..900&display=swap"
         rel="stylesheet">
+    
+    <!-- Nosso CSS. O ./ significa "pasta atual". Funciona no Local e no Pages -->
     <link rel="stylesheet" href="./styles.css">
+    
+    <!-- defer: Baixa o JS mas só executa depois que o HTML carregou tudo. Evita erro de "elemento não encontrado" -->
     <script src="./script.js" defer></script>
     <script src="./script-crud.js" defer></script>
 </head>
 
 <body>
+    <!-- main: Conteúdo principal da página. Semântica = bom pro Google -->
     <main class="app">
+        <!-- header: Cabeçalho do site -->
         <header class="app__header">
+            <!-- figure: Tag pra agrupar imagem + legenda. Semântica correta -->
             <figure class="app__logo-figure">
-                <img class="app__logo-image" src="/imagens/logo.png" alt="">
+                <!-- CORRIGIDO: Tirei o / da frente. Agora é caminho relativo -->
+                <img class="app__logo-image" src="./imagens/logo.png" alt="Logo do Fokus">
             </figure>
         </header>
+        
+        <!-- section: Bloco de conteúdo com assunto específico -->
         <section class="app__section-banner-container">
             <h1 class="app__title">
                 Otimize sua produtividade,<br>
+                <!-- strong: Deixa em negrito + fala mais alto no leitor de tela -->
                 <strong class="app__title-strong">mergulhe no que importa.</strong>
             </h1>
             <figure class="app__image-figure">
-                <img class="app__image" src="/imagens/foco.png" alt="">
+                <!-- CORRIGIDO: ./imagens em vez de /imagens -->
+                <img class="app__image" src="./imagens/foco.png" alt="Pessoa estudando com fone">
             </figure>
         </section>
+        
         <section class="app__section-card-container">
             <div class="app__card">
+                <!-- ul > li: Lista de botões. Semântica correta pra menu/opções -->
                 <ul class="app__card-list">
                     <li class="app__card-list-item">
+                        <!-- data-contexto: O JS lê isso pra saber qual timer ativar -->
                         <button data-contexto="foco" class="app__card-button app__card-button--foco active">Foco</button>
                     </li>
                     <li class="app__card-list-item">
@@ -48,79 +73,96 @@
                         <button data-contexto="long" class="app__card-button app__card-button--longo">Descanso longo</button>
                     </li>
                 </ul>
+                <!-- div#timer: O JS vai preencher com 25:00, 05:00 etc -->
                 <div id="timer" class="app__card-timer"></div>
+                
                 <ul class="app__card-list">
                     <li class="app__card-list-item">
+                        <!-- input type="checkbox": Cria o toggle de ligar/desligar música -->
                         <label class="toggle">
                             <input class="toggle-checkbox" type="checkbox" id="alternar-musica">
                             <div class="toggle-switch"></div>
                         </label>
                     </li>
                     <li class="app__card-list-item">
+                        <!-- for="alternar-musica": Clicar no texto marca o checkbox -->
                         <label class="app__card-list-label" for="alternar-musica">
                             Música
                         </label>
                     </li>
                 </ul>
+                
                 <div class="app__card-primary-button-wrapper">
+                    <!-- id="start-pause": É por esse ID que o JS vai dar o play/pause -->
                     <button id="start-pause" class="app__card-primary-button">
-                        <img class="app__card-primary-butto-icon" src="/imagens/play_arrow.png" alt="">
+                        <!-- CORRIGIDO: ./imagens -->
+                        <img class="app__card-primary-butto-icon" src="./imagens/play_arrow.png" alt="">
                         <span>Começar</span>
                     </button>
                 </div>
             </div>
         </section>
+        
+        <!-- CRUD de Tarefas -->
         <section class="app__section-task-container">
             <div class="app__section-task-content">
                 <header class="app__section-active-task">
                     <p class="app__section-active-task-label">#Em andamento:</p>
+                    <!-- O JS coloca o nome da tarefa aqui -->
                     <p class="app__section-active-task-description"></p>
                 </header>
                 <div class="app__section-task-header">
                     <h2 class="app__section-tasks-heading">Lista de tarefas:</h2>
                     <div class="dropdown-container">
                         <button class="app_button-more">
-                            <img src="/imagens/more.svg" alt="">
+                            <!-- CORRIGIDO: ./imagens -->
+                            <img src="./imagens/more.svg" alt="Mais opções">
                         </button>
                         <ul class="app__section-task-header__ul">
                             <li class="app__section-task-header__li">
                                 <button class="app__section-task-header__li__button" id="btn-remover-concluidas">
-                                    <img src="/imagens/check.svg" alt="">
+                                    <!-- CORRIGIDO: ./imagens -->
+                                    <img src="./imagens/check.svg" alt="">
                                     Limpar tarefas concluídas
                                 </button>
                             </li>
                             <li class="app__section-task-header__li">
                                 <button class="app__section-task-header__li__button" id="btn-remover-todas">
-                                    <img src="/imagens/trash.svg" alt="">
+                                    <!-- CORRIGIDO: ./imagens -->
+                                    <img src="./imagens/trash.svg" alt="">
                                     Limpar todas as tarefas
                                 </button>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <!-- ul vazia: O JS vai preencher com as tarefas via script-crud.js -->
                 <ul class="app__section-task-list"></ul>
+                
+                <!-- form.hidden: Formulário escondido. O JS tira a classe .hidden pra mostrar -->
                 <form class="app__form-add-task hidden" aria-hidden="true">
                     <div class="app__form-field">
                         <label class="app__form-label">
                             Adicionando tarefa
                         </label>
+                        <!-- textarea required: Campo de texto obrigatório, 4 linhas -->
                         <textarea required rows="4" class="app__form-textarea" placeholder="No que você está trabalhando?"></textarea>
                     </div>
                     <footer class="app__form-footer">
                         <button type="button" class="app__form-footer__button app__form-footer__button--delete">
-                            <img src="/imagens/delete.png" alt=""> Deletar
+                            <img src="./imagens/delete.png" alt=""> Deletar
                         </button>
                         <div class="splitter"></div>
                         <button type="button" class="app__form-footer__button app__form-footer__button--cancel">
-                            <img src="/imagens/close.png" alt=""> Cancelar
+                            <img src="./imagens/close.png" alt=""> Cancelar
                         </button>
                         <button class="app__form-footer__button app__form-footer__button--confirm">
-                            <img src="/imagens/save.png" alt=""> Salvar
+                            <img src="./imagens/save.png" alt=""> Salvar
                         </button>
                     </footer>
                 </form>
                 <button class="app__button--add-task">
-                    <img src="/imagens/add_circle.png" alt=""> Adicionar nova tarefa
+                    <img src="./imagens/add_circle.png" alt=""> Adicionar nova tarefa
                 </button>
             </div>
         </section>
@@ -131,7 +173,5 @@
             </p>
         </footer>
     </main>
-
 </body>
-
 </html>
